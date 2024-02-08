@@ -1,5 +1,6 @@
 from GeneticAlgorithm import GeneticAlgorithm
-import matplotlib.pyplot as plt
+import matplotlib as mpl
+mpl.use('QtAgg')
 
 # parameters
 populationSize = 20
@@ -18,13 +19,13 @@ gaOnePartThree = GeneticAlgorithm(lambda c: 2 * len(c) if c.count('1') == 0 else
 ans1_3 = gaOnePartThree.algorithm(populationSize, generations, chanceToMutate)
 
 def parta():
-    plt.plot(ans1_1, 'r')
-    plt.plot(ans1_2, 'g')
-    plt.plot(ans1_3, 'b')
-    plt.xlabel('Generation')
-    plt.ylabel('Average Fitness')
-    plt.title('Average Fitness of the Population vs Generations')
-    plt.show()
+    mpl.pyplot.plot(ans1_1, 'r')
+    mpl.pyplot.plot(ans1_2, 'g')
+    mpl.pyplot.plot(ans1_3, 'b')
+    mpl.pyplot.xlabel('Generation')
+    mpl.pyplot.ylabel('Average Fitness')
+    mpl.pyplot.title('Average Fitness of the Population vs Generations')
+    mpl.pyplot.show()
 
 if __name__ == "__parta__":
     parta()
