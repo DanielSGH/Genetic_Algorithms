@@ -1,15 +1,17 @@
 import random
 import numpy as np
+import json
 
 # parameters
 populationSize = 20
 chromosomeLength = 30
 chanceToMutate = 0.001
-generations = 1000
+generations = 100
 elistismSize = 3
 
+
 # Bin packing specific parameters
-numBins = 100
+numBins = 50
 numItems = 150
 maxBinWeight = 10
 maxItemWeight = 5
@@ -28,7 +30,26 @@ class binpackingGA:
         return [self.createArray() for _ in range(populationSize)]
 
     def generateItems(self):
-        return [np.random.randint(1, maxItemWeight) for _ in range(numItems)]
+
+        with open('initBins.json') as f:
+            data = json.load(f)
+        bppdata = data['bpp1']
+        global numItems
+        numItems = bppdata['numItems']
+        items = []
+        global maxBinWeight
+        maxBinWeight = bppdata['capacity']
+
+        for item in bppdata['items']:
+            for i in range(item[1]):
+                items.append(item[0])
+
+        if len(items) != numItems:
+            print('Error: number of items does not match the number of items in the list')
+
+        return items
+
+        #return [np.random.randint(1, maxItemWeight) for _ in range(numItems)]
 
     def totalFitness(self, population):
         fitnesses = np.zeros(len(population))
