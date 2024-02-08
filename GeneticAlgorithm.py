@@ -55,6 +55,11 @@ class GeneticAlgorithm:
             sumFitness = self.totalFitness(initialPopulation)
             print(f'Generation {i+1}: Average fitness: {avgFitness}, Total fitness: {sumFitness}')
 
+            # # elitism
+            # fitnesses = [self.fitness(chromosome) for chromosome in initialPopulation]
+            # sortedpop = [x for _, x in sorted(zip(fitnesses, initialPopulation), key=lambda pair: pair[0], reverse=True)]
+            # generation = sortedpop[:5]
+
             while len(generation) < len(initialPopulation):
                 parent1 = self.rouletteWheelSelect(initialPopulation)
                 parent2 = self.rouletteWheelSelect(initialPopulation)

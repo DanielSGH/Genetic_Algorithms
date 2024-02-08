@@ -48,7 +48,9 @@ class binpackingGA:
             print('Error: number of items does not match the number of items in the list')
 
         return items
-
+    
+        # Comment out the above and uncomment the below to generate random items
+    
         #return [np.random.randint(1, maxItemWeight) for _ in range(numItems)]
 
     def totalFitness(self, population):
@@ -57,16 +59,18 @@ class binpackingGA:
             bins = np.zeros(numBins, dtype=int)
             for j, gene in enumerate(chromosome):
                 bins[gene] += self.items[j]
-            fitnesses[i] += numBins - np.count_nonzero(bins) + 1
+            overweight = 0
             for j in range(len(bins)):
                 if bins[j] > maxBinWeight:
-                    fitnesses[i] = maxBinWeight - bins[j]
+                    overweight = bins[j] - maxBinWeight
+            if overweight > 0:
+                fitnesses[i] = -overweight
+            else:
+                fitnesses[i] += numBins - np.count_nonzero(bins) + 1
 
             if fitnesses[i] > self.highestFitnessValue:
                 self.highestFitnessValue = fitnesses[i]
                 self.highestFitness = bins
-                print(chromosome)
-                print(bins)
                 print(f'New highest fitness {fitnesses[i]}')
         return fitnesses
 

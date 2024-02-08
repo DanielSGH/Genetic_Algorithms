@@ -18,12 +18,13 @@ gaOnePartThree = GeneticAlgorithm(lambda c : 2 * len(c) if c.count('1') == 0 els
 ans1_3 = gaOnePartThree.algorithm(populationSize, generations, chanceToMutate)
 
 def main():
-    plt.plot(ans1_1, 'r')
-    plt.plot(ans1_2, 'g')
-    plt.plot(ans1_3, 'b')
+    plt.plot(ans1_1, 'r', label='One-Max')
+    plt.plot(ans1_2, 'g', label='Target String')
+    plt.plot(ans1_3, 'b', label='Deceptive Landscape')
     plt.xlabel('Generation')
     plt.ylabel('Average Fitness')
     plt.title('Average Fitness of the Population vs Generations')
+    plt.legend()
     plt.show()
 
 if __name__ == "__main__":
